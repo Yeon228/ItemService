@@ -61,19 +61,9 @@ public class ItemController {
     }
 
     @GetMapping("/basic/items/{itemId}/buy")
-    public String buyItem(@PathVariable Integer itemId, Model model){
+    public String buyItem(@PathVariable Integer itemId, Model model) {
         repository.buy(itemId);
         model.addAttribute(itemId);
         return "redirect:/basic/items/{itemId}";
     }
-
-    @PostConstruct
-    public void init(){
-        Item itemA = new Item("itemA", 5000, 100);
-        Item itemB = new Item("itemB", 55000, 10);
-        repository.save(itemA);
-        repository.save(itemB);
-    }
-
-
 }

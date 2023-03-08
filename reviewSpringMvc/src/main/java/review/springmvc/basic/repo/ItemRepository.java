@@ -23,6 +23,7 @@ public class ItemRepository {
         dataSource.setUser("doyeon");
         dataSource.setPassword("1q2w3e4r");
         jdbcTemplate = new JdbcTemplate(dataSource);
+
     }
     public Item save(Item item){
         log.info("Saved Item");
@@ -68,6 +69,15 @@ public class ItemRepository {
     }
 
     public List<Item> getAll(){
+
+        jdbcTemplate.query("SELECT * FROM practice.item", rs -> {
+            Item item = new Item();
+            item.setId(rs.getInt("id"));
+            item.setItemName(rs.getString("itemName"));
+            item.setPrice(rs.getInt("price"));
+            item.setQuantity(rs.getInt("quantity"));
+            repository.put(item.getId(), item);
+        });
         log.info("Get all repository's item");
         return new ArrayList<>(repository.values());
     }
