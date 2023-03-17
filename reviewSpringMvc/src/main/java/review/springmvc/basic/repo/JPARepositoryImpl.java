@@ -27,7 +27,7 @@ public class JPARepositoryImpl {
     public Item getById(Integer id){
         return jpaItemRepository.getReferenceById(id);
     }
-    public void delete(Integer id){
+    public void delete(int id){
         Optional<Item> itemOptional = findById(id);
         if(itemOptional.isEmpty()){
             log.error("WARNING!! THERE IS NO ITEM, INPUT ID : " + id);

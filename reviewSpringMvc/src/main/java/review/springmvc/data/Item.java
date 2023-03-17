@@ -1,10 +1,9 @@
 package review.springmvc.data;
 
 import jakarta.annotation.Resource;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Data;
+import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.mariadb.jdbc.MariaDbConnection;
 import org.mariadb.jdbc.MariaDbDataSource;
@@ -16,22 +15,23 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-@Slf4j
-@Table(name = "Item")
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Item {
-    private String itemName;
     @Id
-    private int id;
-    private int price;
-    private int quantity;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    @Column(nullable = false)
+    private String itemName;
 
-    public Integer getId() {
-        return id;
-    }
+    @Column(nullable = false)
+    private Integer quantity;
+
+    @Column(nullable = false)
+    private Integer price;
 }

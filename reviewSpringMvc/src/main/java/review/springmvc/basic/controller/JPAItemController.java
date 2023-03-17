@@ -36,7 +36,7 @@ public class JPAItemController {
     }
 
     @GetMapping("/basic/items/{itemId}/remove")
-    public String remove(Model model, @PathVariable Integer itemId){
+    public String remove(Model model, @PathVariable int itemId){
         repository.delete(itemId);
         model.addAttribute("items",repository.getAll());
         return "redirect:/basic/items";

@@ -23,15 +23,15 @@ public class ItemRepository {
         dataSource.setPassword("1q2w3e4r");
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
-    public Item save(Item item){
-        log.info("Saved Item");
-        String sql = "SELECT COUNT(*) FROM item";
-        int itemId = jdbcTemplate.queryForObject(sql, Integer.class) + 1;
-        item.setId(itemId);
-        repository.put(itemId,item);
-        insertItem(item);
-        return item;
-    }
+//    public Item save(Item item){
+//        log.info("Saved Item");
+//        String sql = "SELECT COUNT(*) FROM item";
+//        int itemId = jdbcTemplate.queryForObject(sql, Integer.class) + 1;
+//        item.setId(itemId);
+//        repository.put(itemId,item);
+//        insertItem(item);
+//        return item;
+//    }
 
 
     public Item findById(Integer id){
@@ -72,18 +72,18 @@ public class ItemRepository {
         return true;
     }
 
-    public List<Item> getAll(){
-        repository.clear();
-        jdbcTemplate.query("SELECT * FROM practice.item", rs -> {
-            Item item = new Item();
-            item.setId(rs.getInt("id"));
-            item.setItemName(rs.getString("itemName"));
-            item.setPrice(rs.getInt("price"));
-            item.setQuantity(rs.getInt("quantity"));
-            repository.put(item.getId(), item);
-        });
-        log.info("Get all repository's item");
-        return new ArrayList<>(repository.values());
-    }
+//    public List<Item> getAll(){
+//        repository.clear();
+//        jdbcTemplate.query("SELECT * FROM practice.item", rs -> {
+//            Item item = new Item();
+//            item.setId(rs.getInt("id"));
+//            item.setItemName(rs.getString("itemName"));
+//            item.setPrice(rs.getInt("price"));
+//            item.setQuantity(rs.getInt("quantity"));
+//            repository.put(item.getId(), item);
+//        });
+//        log.info("Get all repository's item");
+//        return new ArrayList<>(repository.values());
+//    }
 }
 
