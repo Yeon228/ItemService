@@ -19,7 +19,7 @@
   <div>
     <label for="itemId">상품 ID</label>
     <input type="text" id="itemId" name="itemId" class="form-control"
-           value="1" th:value="${item.getId()}" readonly>
+           value="1" th:value="${item.id}" readonly>
   </div>
   <div>
   <label for="itemName">상품명</label>
@@ -38,19 +38,28 @@
   <hr class="my-4">
   <div class="row">
     <div class="col">
-      <button class="w-75 btn btn-primary btn-lg"
+      <button class="w-100 btn btn-primary btn-lg"
               onclick="location.href='editForm.html'"
               th:onclick="|location.href='@{/basic/items/{itemId}/edit(itemId=${item.id})}'|"
-              type="button">상품 수정</button>
+              type="button">상품수정</button>
     </div>
     <div class="col">
-      <button class="w-75 btn btn-primary btn-lg"
+      <button class="w-100 btn btn-primary btn-lg"
               onclick="location.href='item.html'"
               th:onclick="|location.href='@{/basic/items/{itemId}/buy(itemId=${item.id})}'|"
-              type="button">상품 구매</button>
+              type="button">상품구매</button>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col">
+      <button class="w-100 btn btn-primary btn-lg"
+              onclick="location.href='item.html'"
+              th:onclick="|location.href='@{/basic/items/{itemId}/remove(itemId=${item.id})}'|"
+              type="button">상품삭제</button>
     </div>
     <div class="col">
-      <button class="w-75 btn btn-secondary btn-lg"
+      <button class="w-100 btn btn-secondary btn-lg"
               onclick="location.href='items.html'"
               th:onclick="|location.href='@{/basic/items}'|"
               type="button">목록으로</button> </div>

@@ -11,11 +11,10 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.logging.Logger;
 
-@Repository
 @Slf4j
 public class ItemRepository {
+    private final MariaDbDataSource dataSource = new MariaDbDataSource();
     private JdbcTemplate jdbcTemplate;
-    private MariaDbDataSource dataSource = new MariaDbDataSource();
     private final Map<Integer, Item> repository = new HashMap<>();
     private int count = 0;
     public ItemRepository() throws SQLException {
@@ -23,25 +22,26 @@ public class ItemRepository {
         dataSource.setUser("doyeon");
         dataSource.setPassword("1q2w3e4r");
         jdbcTemplate = new JdbcTemplate(dataSource);
-
     }
     public Item save(Item item){
         log.info("Saved Item");
-        item.setId(++count);
-        repository.put(item.getId(),item);
+        String sql = "SELECT COUNT(*) FROM item";
+        int itemId = jdbcTemplate.queryForObject(sql, Integer.class) + 1;
+        item.setId(itemId);
+        repository.put(itemId,item);
         insertItem(item);
         return item;
     }
+
 
     public Item findById(Integer id){
         return repository.get(id);
     }
 
-    public void update(Integer id, Item newItem){
-        Item item = repository.get(id);
-        log.info(item + " is updated");
-        repository.remove(id);
-        repository.put(id,newItem);
+    public void update(Item item){
+        String sql = "UPDATE item SET itemName = '"+ item.getItemName() + "', price = " + item.getPrice()
+                + ", quantity = " + item.getQuantity() + " WHERE Id = " + item.getId();
+        jdbcTemplate.update(sql);
     }
 
     public void removeAll(){
@@ -50,11 +50,15 @@ public class ItemRepository {
     }
 
     public void insertItem(Item item){
-        jdbcTemplate = new JdbcTemplate(dataSource);
         String sql = "INSERT INTO item (itemName, id, price, quantity) values (?, ?, ?, ?)";
         jdbcTemplate.update(sql, item.getItemName(), item.getId(), item.getPrice(), item.getQuantity());
-        log.info("update done?");
+        log.info("Insert item at database");
+    }
 
+    public void delete(Integer itemId){
+        String sql = "DELETE FROM item WHERE ID = " + itemId.toString();
+        jdbcTemplate.update(sql);
+        log.info("Remove item at database");
     }
 
     public boolean buy(Integer itemId){
@@ -69,7 +73,7 @@ public class ItemRepository {
     }
 
     public List<Item> getAll(){
-
+        repository.clear();
         jdbcTemplate.query("SELECT * FROM practice.item", rs -> {
             Item item = new Item();
             item.setId(rs.getInt("id"));
