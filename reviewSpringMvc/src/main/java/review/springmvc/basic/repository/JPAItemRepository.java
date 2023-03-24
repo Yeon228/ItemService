@@ -1,4 +1,4 @@
-package review.springmvc.basic.repo;
+package review.springmvc.basic.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import review.springmvc.data.Item;

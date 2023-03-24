@@ -1,9 +1,7 @@
-package review.springmvc.basic.repo;
+package review.springmvc.basic.repository;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import review.springmvc.data.Item;
 
@@ -13,7 +11,7 @@ import java.util.Optional;
 @Repository
 @Slf4j
 @RequiredArgsConstructor
-public class JPARepositoryImpl {
+public class ItemRepository {
     private final JPAItemRepository jpaItemRepository;
 
     public void insert(Item item){

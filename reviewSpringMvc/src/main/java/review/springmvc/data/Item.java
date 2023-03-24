@@ -34,5 +34,4 @@ public class Item {
 
     @Column(nullable = false)
     private Integer price;
-
 }

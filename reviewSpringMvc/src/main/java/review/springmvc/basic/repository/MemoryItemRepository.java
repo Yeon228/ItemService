@@ -1,23 +1,20 @@
-package review.springmvc.basic.repo;
+package review.springmvc.basic.repository;
 
-import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.mariadb.jdbc.MariaDbDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
 import review.springmvc.data.Item;
 
 import java.sql.SQLException;
 import java.util.*;
-import java.util.logging.Logger;
 
 @Slf4j
-public class ItemRepository {
+public class MemoryItemRepository {
     private final MariaDbDataSource dataSource = new MariaDbDataSource();
     private JdbcTemplate jdbcTemplate;
     private final Map<Integer, Item> repository = new HashMap<>();
     private int count = 0;
-    public ItemRepository() throws SQLException {
+    public MemoryItemRepository() throws SQLException {
         dataSource.setUrl("jdbc:mariadb://152.67.198.30:3306/practice");
         dataSource.setUser("doyeon");
         dataSource.setPassword("1q2w3e4r");
